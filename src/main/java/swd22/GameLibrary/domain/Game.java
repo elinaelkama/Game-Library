@@ -4,6 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Game {
@@ -14,17 +18,24 @@ public class Game {
 	
 	//name?
 	private String title;
-	private int year;
+	private int year; //unable to find sufficient documentation to switch into a release date
 	private int age;
 	
-	//attribute lisää
-	//private Attribute;
+	@ManyToOne
+	@JsonIgnoreProperties
+    @JoinColumn(name = "platformid")
+	private Platform platform;
 	
-	public Game(String title, int year, int age) {
+	//attribute pitäisi olla listana
+	//@ManyToMany
+	//Set<Attribute> attributes;
+	
+	public Game(String title, int year, int age, Platform platform) {
 		super();
 		this.title = title;
 		this.year = year;
 		this.age = age;
+		this.platform = platform;
 	}
 	
 	public Game() {
@@ -60,6 +71,14 @@ public class Game {
 		this.age = age;
 	}
 	
+	public Platform getPlatform() {
+		return platform;
+	}
+
+	public void setPlatform(Platform platform) {
+		this.platform = platform;
+	}
+
 	@Override
 	public String toString() {
 		return "id=" + id + ", title=" + title + ", year=" + year;

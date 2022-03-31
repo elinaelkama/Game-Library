@@ -13,13 +13,16 @@
 					<th>Title</th>
 					<th>Year</th>
 					<th>Age Restriction</th>
+					<th>Platform</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each = "game : ${games}">
 					<td th:text ="${game.title}"></td>
 					<td th:text ="${game.year}"></td>
-					<td th:unless="${game.age} == 0" th:text ="${game.age}" ></td>
+					<div th:unless="${game.age} == 0"><td  th:text ="${game.age}" ></td></div>
+					<div th:if="${game.age} == 0"><td>n/a</td></div>
+					<td th:text ="${game.platform.name}"></td>
 				</tr>
 			</tbody>
 		</table>

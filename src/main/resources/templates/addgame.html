@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <title>Add Game</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	</head>
+	<body>
+		<h2>Add new game</h2>
+		<div>
+			<form th:object="${game}" th:action="@{/save}" method="post" class="form">
+			  	<label>Title: </label>
+				<input type="text" id="title" th:field="*{title}" th:required="required" />
+				<p></p>
+				<label>Release Year: </label>
+				<input type="text" id="year" th:field="*{year}" th:required="required" />
+				<p></p>
+				<label>Age Restriction (0 for n/a or not rated): </label>
+				<input type="text" id="age" th:field="*{age}" th:required="required" />
+				<p></p>
+				<label>Platform (if platform not listed, create one: /addplatform): </label>
+			 	<select id="platforms" th:field="*{platform}" class="form-control">
+       				<option th:each="platform: ${platforms}"
+       				th:value="${platform.id}" th:text="${platform.name}"></option>
+    			</select>
+				<p></p>
+				<input type="submit" value="Save"></input>
+			</form>
+		</div>
+	</body>
+</html>

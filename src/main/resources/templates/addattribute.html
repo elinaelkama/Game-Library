@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	<head>
+	    <title>Add Attribute</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+	</head>
+	<body>
+		<h2>Add a new attribute</h2>
+		<div>
+			<form th:object="${attribute}" th:action="@{/saveattribute}" method="post">
+			  	<label for="name">Attribute</label>
+				<input type="text" id="name" th:field="*{name}" />
+				<p></p>
+				<input type="submit" class="btn btn-success" value="Save"></input>
+			</form>
+		<a href="/attributes" class="btn btn-default">&larr; Back</a>
+		</div>
+	</body>
+</html>

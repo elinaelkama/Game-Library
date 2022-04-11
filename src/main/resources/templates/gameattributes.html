@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	<head>
+	    <title>Game attributes</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+	</head>
+	<body>
+		<h2>Game attributes for [[${game.title}]]</h2>
+		<div>
+			<table class="table table-default">
+				<thead>
+					<tr>
+						<th>Attributes</th>
+						<th>ID</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each = "attribute : ${game.attributes}">
+						<td th:text ="${attribute.name}"></td>
+						<td th:text ="${attribute.id}"></td>
+					</tr>
+				</tbody>
+			</table>
+			<a th:href="@{/editgameattributes/{id}(id=${game.id})}" class="btn btn-default">Add game attribute</a>
+			<a href="/gamelibrary" class="btn btn-default">&larr; Back</a>
+		</div>
+	</body>
+</html>

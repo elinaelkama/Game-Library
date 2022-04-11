@@ -1,10 +1,13 @@
 package swd22.GameLibrary.domain;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -18,7 +21,7 @@ public class Game {
 	
 	//name?
 	private String title;
-	private int year; //unable to find sufficient documentation to switch into a release date
+	private int year; //unable to find sufficient documentation to use date
 	private int age;
 	
 	@ManyToOne
@@ -26,9 +29,10 @@ public class Game {
     @JoinColumn(name = "platformid")
 	private Platform platform;
 	
-	//attribute pitäisi olla listana
-	//@ManyToMany
-	//Set<Attribute> attributes;
+	@ManyToMany
+	@JsonIgnoreProperties
+	@JoinColumn(name = "attributeid")
+	private List<Attribute> attributes;
 	
 	public Game(String title, int year, int age, Platform platform) {
 		super();
@@ -77,6 +81,14 @@ public class Game {
 
 	public void setPlatform(Platform platform) {
 		this.platform = platform;
+	}
+	
+	public List<Attribute> getAttributes() {
+		return attributes;
+	}
+
+	public void setAttributes(List<Attribute> attributes) {
+		this.attributes = attributes;
 	}
 
 	@Override

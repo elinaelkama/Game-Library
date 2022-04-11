@@ -12,9 +12,12 @@
 			<thead>
 				<tr>
 					<th>Title</th>
-					<th>Year</th>
+					<th>Release Year</th>
 					<th>Age Restriction</th>
 					<th>Platform</th>
+					<th>Attributes</th>
+					<th>Edit</th>
+					<th>Delete</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -22,12 +25,15 @@
 					<td th:text ="${game.title}"></td>
 					<td th:text ="${game.year}"></td>
 					<div th:unless="${game.age} == 0"><td  th:text ="${game.age}" ></td></div>
-					<div th:if="${game.age} == 0"><td>n/a</td></div>
+					<div th:if="${game.age} == 0"><td>N/A</td></div>
 					<td th:text ="${game.platform.name}"></td>
+					<td><a th:href="@{/gameattributes/{id}(id=${game.id})}">Attributes</a></td>
+					<td><a th:href="@{/edit/{id}(id=${game.id})}">Edit</a></td>
+					<td><a th:href="@{/delete/{id}(id=${game.id})}" class="btn btn-danger">Delete</a><td>
 				</tr>
 			</tbody>
 		</table>
-		<a href="/addgame" class="btn btn-default">Add a new game</a>
+		<a href="/addgame" class="btn btn-default">Add a new game</a><a href="/platforms" class="btn btn-default">To platforms</a><a href="/attributes" class="btn btn-default">To attributes</a>
 	</div>
 </body>
 </html>

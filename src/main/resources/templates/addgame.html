@@ -1,8 +1,9 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	<head>
 	    <title>Add Game</title>
 	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
 	</head>
 	<body>
 		<h2>Add new game</h2>
@@ -17,14 +18,15 @@
 				<label>Age Restriction (0 for n/a or not rated): </label>
 				<input type="text" id="age" th:field="*{age}" th:required="required" />
 				<p></p>
-				<label>Platform (if platform not listed, create one: /addplatform): </label>
+				<label>Platform (if platform not listed, create one: <a href="/addplatform" class="btn btn-default">/addplatform</a>): </label>
 			 	<select id="platforms" th:field="*{platform}" class="form-control">
        				<option th:each="platform: ${platforms}"
        				th:value="${platform.id}" th:text="${platform.name}"></option>
     			</select>
 				<p></p>
-				<input type="submit" value="Save"></input>
+				<input type="submit" class="btn btn-success" value="Save"></input>
 			</form>
+			<a href="/gamelibrary" class="btn btn-default">&larr; Back</a>
 		</div>
 	</body>
 </html>

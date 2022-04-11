@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	<head>
+	    <title>Edit game</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+	</head>
+	<body>
+		<h2>Edit game</h2>
+		<div>
+			<form th:object="${game}" th:action="@{/save}" method="post">
+				<input type="hidden" th:field="*{id}" />
+			  	<label for="title">Title</label>
+				<input th:field="*{title}" />
+				<p></p>
+				<label for="year">Year</label>
+				<input th:field="*{year}" />
+				<p></p>
+			  	<label for="age">Age restriction</label>
+				<input th:field="*{age}" />
+				<p></p>
+				<label for="platformlist">Platform</label>
+			 	<select id="platformlist" th:field="*{platform}" class="form-control">
+       				<option th:each="platform: ${platforms}" th:value="${platform.id}" th:text="${platform.name}"></option>
+    			</select>
+    			<div style="clear: both; display: block; height: 10px;"></div>
+				<input type="submit" class="btn btn-success" value="Save"></input>
+			</form>
+		</div>
+	</body>
+</html>

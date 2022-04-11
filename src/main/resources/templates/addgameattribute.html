@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	<head>
+	    <title>Edit game attributes</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+	</head>
+	<body>
+		<h2>Add game attribute for [[${game.title}]]</h2>
+		<div>
+			<form th:object="${game}" th:action="@{/save}" method="post">
+				<input type="hidden" th:field="*{id}" />
+				<input type="hidden" th:field="*{title}" />
+				<input type="hidden" th:field="*{year}" />
+				<input type="hidden" th:field="*{age}" />
+				<input type="hidden" th:field="*{platform.id}" />
+				<input type="hidden" th:field="*{platform.name}" />
+				<label for="attributelist">Attributes</label>
+			 	<select id="attributelist" class="form-control">
+       				<option th:each="attribute: ${attributes}" th:value="${attribute.id}" th:text="${attribute.name}"></option>
+    			</select>
+    			<p></p>
+				<input type="submit" class="btn btn-success" value="Save"></input>
+			</form>
+			<a href="/gameattributes/{id}(id=${game.id})}" class="btn btn-default">&larr; Back</a>
+		</div>
+	</body>
+</html>

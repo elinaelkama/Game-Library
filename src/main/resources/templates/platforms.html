@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	<head>
+		<meta http-equiv="Content-Type" contect="text/html" charset="UTF-8">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />		
+		<title>Platforms</title>
+	</head>
+	<body>
+		<div>
+			<h2>Platforms</h2>
+			<table class="table table-default">
+				<thead>
+					<tr>
+						<th>Platform</th>
+						<th>ID</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each = "platform : ${platforms}">
+						<td th:text ="${platform.name}"></td>
+						<td th:text ="${platform.id}"></td>
+					</tr>
+				</tbody>
+			</table>
+			<a href="/addplatform" class="btn btn-default">Add platform</a>
+			<a href="/gamelibrary" class="btn btn-default">&larr; Back</a>
+		</div>
+	</body>
+</html>

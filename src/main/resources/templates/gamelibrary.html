@@ -6,10 +6,8 @@
 		<title>Game Library</title>
 	</head>
 <body>
-	<form sec:authorize="hasAuthority('ADMIN')" th:action="@{logout}" method="post">
-		<input type="submit" value="Sign out" class="btn btn-danger" />
-	</form>
 	<h2>Game Library</h2>
+	<a href="/login" class="btn btn-default">Log In</a>
 	<div>
 		<h3 th:inline="text" sec:authorize="hasAuthority('ADMIN')">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
 		<table class="table table-default">
@@ -40,6 +38,9 @@
 		<a href="/addgame" class="btn btn-default" sec:authorize="hasAuthority('ADMIN')">Add a new game</a>
 		<a href="/platforms" class="btn btn-default">To platforms</a>
 		<a href="/attributes" class="btn btn-default">To attributes</a>
+		<form sec:authorize="hasAuthority('ADMIN')" th:action="@{logout}" method="post">
+			<input type="submit" value="Sign out" class="btn btn-danger" />
+		</form>
 	</div>
 </body>
 </html>

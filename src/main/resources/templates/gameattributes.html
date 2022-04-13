@@ -6,9 +6,6 @@
 	    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
 	</head>
 	<body>
-		<form sec:authorize="hasAuthority('ADMIN')" th:action="@{logout}" method="post">
-			<input type="submit" value="Sign out" class="btn btn-danger" />
-		</form>
 		<h2>Game attributes for [[${game.title}]]</h2>
 		<div>
 			<div th:if="${#lists.isEmpty(game.attributes)}"><p>There are no attributes added for [[${game.title}]]</p></div>
@@ -30,6 +27,10 @@
 			</div>
 			<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/editgameattributes/{id}(id=${game.id})}" class="btn btn-default">Add game attribute</a>
 			<a href="/gamelibrary" class="btn btn-default">&larr; Back</a>
+			<p></p>
+			<form sec:authorize="hasAuthority('ADMIN')" th:action="@{logout}" method="post">
+				<input type="submit" value="Sign out" class="btn btn-danger" />
+			</form>
 		</div>
 	</body>
 </html>

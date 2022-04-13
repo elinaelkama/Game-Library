@@ -6,9 +6,7 @@
 		<title>Platforms</title>
 	</head>
 	<body>
-		<form sec:authorize="hasAuthority('ADMIN')" th:action="@{logout}" method="post">
-			<input type="submit" value="Sign out" class="btn btn-danger" />
-		</form>
+
 		<div>
 			<h2>Platforms</h2>
 			<table class="table table-default">
@@ -27,6 +25,10 @@
 			</table>
 			<a sec:authorize="hasAuthority('ADMIN')" href="/addplatform" class="btn btn-default">Add platform</a>
 			<a href="/gamelibrary" class="btn btn-default">&larr; Back</a>
+			<p></p>
+			<form sec:authorize="hasAuthority('ADMIN')" th:action="@{logout}" method="post">
+				<input type="submit" value="Sign out" class="btn btn-danger" />
+			</form>
 		</div>
 	</body>
 </html>

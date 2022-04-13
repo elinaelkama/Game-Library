@@ -11,6 +11,8 @@ import swd22.GameLibrary.domain.Game;
 import swd22.GameLibrary.domain.GameRepository;
 import swd22.GameLibrary.domain.Platform;
 import swd22.GameLibrary.domain.PlatformRepository;
+import swd22.GameLibrary.domain.User;
+import swd22.GameLibrary.domain.UserRepository;
 
 @SpringBootApplication
 public class GameLibraryApplication {
@@ -20,7 +22,7 @@ public class GameLibraryApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(GameRepository gameRepository, PlatformRepository platformRepository, AttributeRepository attributeRepository) {
+	public CommandLineRunner demo(GameRepository gameRepository, PlatformRepository platformRepository, AttributeRepository attributeRepository, UserRepository userRepository) {
 		return (args) -> {
 			Platform platform1 = new Platform("Steam");
 			Platform platform2 = new Platform("GOG Galaxy");
@@ -58,6 +60,14 @@ public class GameLibraryApplication {
 			attributeRepository.save(attribute3);
 			attributeRepository.save(attribute4);
 			attributeRepository.save(attribute5);
+			
+			//game1.add(new <List>Attributes attribute2));
+			
+			User user1 = new User("messiah", "$2a$10$3TqmIoCss2ezHiUifteKf.tMbMtpUFlU9lCErNbVSrm94Gl5Z..Da", "ADMIN");
+			User user2 = new User("teacher", "$2a$10$WiIjuE8c4D/T2XGIhjWA.OGaLzjR3kAAQ5X1YAeAsjp16Yh4U0JXy", "ADMIN");
+			
+			userRepository.save(user1);
+			userRepository.save(user2);
 		};
 	}
 }

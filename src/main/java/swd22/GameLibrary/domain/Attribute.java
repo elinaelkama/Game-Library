@@ -6,8 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -18,11 +19,11 @@ public class Attribute {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
+	@NotEmpty
 	private String name;
 	
-	@ManyToMany
+	@ManyToMany(mappedBy = "attributes")
 	@JsonIgnoreProperties
-    @JoinColumn(name = "gameid")
 	private List<Game> games;
 	
 	
@@ -49,6 +50,14 @@ public class Attribute {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public List<Game> getGames() {
+		return games;
+	}
+
+	public void setGames(List<Game> games) {
+		this.games = games;
 	}
 
 	@Override

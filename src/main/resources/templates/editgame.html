@@ -6,6 +6,9 @@
 	    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
 	</head>
 	<body>
+		<form th:action="@{logout}" method="post">
+			<input type="submit" value="Sign out" class="btn btn-danger" />
+		</form>
 		<h2>Edit game</h2>
 		<div>
 			<form th:object="${game}" th:action="@{/save}" method="post">
@@ -26,6 +29,8 @@
     			<div style="clear: both; display: block; height: 10px;"></div>
 				<input type="submit" class="btn btn-success" value="Save"></input>
 			</form>
+			<p></p>
+			<a href="/gamelibrary" class="btn">&larr; Back</a>
 		</div>
 	</body>
 </html>

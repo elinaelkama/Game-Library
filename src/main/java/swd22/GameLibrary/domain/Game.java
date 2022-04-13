@@ -1,14 +1,19 @@
 package swd22.GameLibrary.domain;
 
 import java.util.List;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -19,9 +24,13 @@ public class Game {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
-	//name?
+	@NotEmpty
 	private String title;
-	private int year; //unable to find sufficient documentation to use date
+	
+	@NotNull
+	private int year;
+	
+	@NotNull
 	private int age;
 	
 	@ManyToOne
@@ -31,7 +40,10 @@ public class Game {
 	
 	@ManyToMany
 	@JsonIgnoreProperties
-	@JoinColumn(name = "attributeid")
+	@JoinTable(
+			name = "gameattributes", 
+			joinColumns = @JoinColumn(name = "gameid"), 
+			inverseJoinColumns = @JoinColumn(name = "attributeid"))
 	private List<Attribute> attributes;
 	
 	public Game(String title, int year, int age, Platform platform) {

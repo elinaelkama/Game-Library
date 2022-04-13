@@ -2,7 +2,10 @@ package swd22.GameLibrary.web;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,20 +32,22 @@ public class GameLibraryController {
 	
 
 	@RequestMapping(value={"/", "/gamelibrary"}, method = RequestMethod.GET)
-	public String getGameLibrary(Model model) {
+	public String getGameLibrary(@Valid Model model) {
 		model.addAttribute("games", gameRepository.findAll());
 		return "gamelibrary";
 	}
 	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value="/addgame", method = RequestMethod.GET)
-	public String addGame(Model model) {
+	public String addGame(@Valid Model model) {
 		model.addAttribute("game", new Game());
 		model.addAttribute("platforms", platformRepository.findAll());
 		return "addgame";
 	}
 	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value="/save", method = RequestMethod.POST)
-	public String saveGame(Game game) {
+	public String saveGame(@Valid Game game) {
 		if (game.getTitle() != "" && game.getTitle() != null) {
 			gameRepository.save(game);
 		}
@@ -50,7 +55,7 @@ public class GameLibraryController {
 	}
 	
 	@RequestMapping(value="/gameattributes/{id}", method = RequestMethod.GET)
-	public String getGameAttributes(@PathVariable("id") Long id, Model model) {
+	public String getGameAttributes(@PathVariable("id") Long id, @Valid Model model) {
 		Optional<Game> game = gameRepository.findById(id);
 		//need to cast to object to use object functionalities
 		game.ifPresent(foundGameObject -> model.addAttribute("game", foundGameObject));
@@ -58,17 +63,19 @@ public class GameLibraryController {
 		return "gameattributes";
 	}
 	
-	//edit
+	//edits
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value="/edit/{id}", method = RequestMethod.GET)
-	public String editGame(@PathVariable("id") Long id, Model model) {
+	public String editGame(@PathVariable("id") Long id, @Valid Model model) {
 		Optional<Game> game = gameRepository.findById(id);
 		model.addAttribute("game", game);
 		model.addAttribute("platforms", platformRepository.findAll());
 		return "editgame";
 	}
 	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value="/addgameattribute/{id}", method = RequestMethod.GET)
-	public String editGameAttributes(@PathVariable("id") Long id, Model model) {
+	public String editGameAttributes(@PathVariable("id") Long id, @Valid Model model) {
 		Optional<Game> game = gameRepository.findById(id);
 		//need to cast to object to use game.title in header
 		game.ifPresent(foundGameObject -> model.addAttribute("game", foundGameObject));
@@ -77,17 +84,16 @@ public class GameLibraryController {
 	}
 	
 	//delete
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
-	public String deleteGame(@PathVariable("id") Long id, Model model) {
+	public String deleteGame(@PathVariable("id") Long id, @Valid Model model) {
 		gameRepository.deleteById(id);
 		return "redirect:/gamelibrary";
 	}
 	
-	//to be implemented with security
-	//@RequestMapping(value="/login")
-	//public String login() {
-	//	return "login";
-	//}
+	@RequestMapping(value="/login")
+	public String login() {
+		return "login";
+	}
 	
-	//add REST
 }

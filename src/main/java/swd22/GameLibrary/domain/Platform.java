@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -18,6 +20,7 @@ public class Platform {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
+	@NotEmpty
 	private String name;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "platform")

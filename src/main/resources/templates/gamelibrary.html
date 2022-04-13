@@ -6,8 +6,12 @@
 		<title>Game Library</title>
 	</head>
 <body>
+	<form sec:authorize="hasAuthority('ADMIN')" th:action="@{logout}" method="post">
+		<input type="submit" value="Sign out" class="btn btn-danger" />
+	</form>
 	<h2>Game Library</h2>
 	<div>
+		<h3 th:inline="text" sec:authorize="hasAuthority('ADMIN')">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
 		<table class="table table-default">
 			<thead>
 				<tr>
@@ -16,8 +20,8 @@
 					<th>Age Restriction</th>
 					<th>Platform</th>
 					<th>Attributes</th>
-					<th>Edit</th>
-					<th>Delete</th>
+					<th sec:authorize="hasAuthority('ADMIN')">Edit</th>
+					<th sec:authorize="hasAuthority('ADMIN')">Delete</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -27,13 +31,15 @@
 					<div th:unless="${game.age} == 0"><td  th:text ="${game.age}" ></td></div>
 					<div th:if="${game.age} == 0"><td>N/A</td></div>
 					<td th:text ="${game.platform.name}"></td>
-					<td><a th:href="@{/gameattributes/{id}(id=${game.id})}">Attributes</a></td>
-					<td><a th:href="@{/edit/{id}(id=${game.id})}">Edit</a></td>
-					<td><a th:href="@{/delete/{id}(id=${game.id})}" class="btn btn-danger">Delete</a><td>
+					<td><a th:href="@{/gameattributes/{id}(id=${game.id})}">Game Attributes</a></td>
+					<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/edit/{id}(id=${game.id})}">Edit</a></td>
+					<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${game.id})}" class="btn btn-danger">Delete</a><td>
 				</tr>
 			</tbody>
 		</table>
-		<a href="/addgame" class="btn btn-default">Add a new game</a><a href="/platforms" class="btn btn-default">To platforms</a><a href="/attributes" class="btn btn-default">To attributes</a>
+		<a href="/addgame" class="btn btn-default" sec:authorize="hasAuthority('ADMIN')">Add a new game</a>
+		<a href="/platforms" class="btn btn-default">To platforms</a>
+		<a href="/attributes" class="btn btn-default">To attributes</a>
 	</div>
 </body>
 </html>

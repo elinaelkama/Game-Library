@@ -3,15 +3,15 @@
 	<head>
 		<meta http-equiv="Content-Type" contect="text/html" charset="UTF-8">
 		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
-		<title>Platforms</title>
+		<title data-th-text="#{label.attributes}"></title>
 	</head>
 	<body>
 		<div>
-			<h2>Attributes</h2>
+			<h2 data-th-text="#{label.attributes}"></h2>
 			<table class="table table-default">
 				<thead>
 					<tr>
-						<th>Attributes</th>
+						<th data-th-text="#{label.attributes}"></th>
 						<th>ID</th>
 					</tr>
 				</thead>
@@ -22,12 +22,12 @@
 					</tr>
 				</tbody>
 			</table>
-			<a sec:authorize="hasAuthority('ADMIN')" href="/addattribute" class="btn btn-default">Add attribute</a>
+			<a sec:authorize="hasAuthority('ADMIN')" data-th-text="#{label.add.attribute}" href="/addattribute" class="btn btn-default">Add attribute</a>
 			<p></p>
-			<a href="/gamelibrary" class="btn btn-default">&larr; Back</a>
+			<a href="/gamelibrary" class="btn btn-info" data-th-text="#{label.back}"></a>
 			<p></p>
 			<form sec:authorize="hasAuthority('ADMIN')" th:action="@{logout}" method="post">
-				<input type="submit" value="Sign out" class="btn btn-danger" />
+				<input type="submit" th:value="#{label.logout}" class="btn btn-danger" />
 			</form>
 		</div>
 	</body>

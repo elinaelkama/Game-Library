@@ -30,9 +30,13 @@ public class WebSerurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http
-			.authorizeRequests().antMatchers("/css/**", "/", "/gamelibrary", "/gameattributes/{id}", "/platforms", "/attributes", "/api").permitAll()
+			.authorizeRequests().antMatchers("/h2-console/**", "/css/**", "/", "/?language=en", "/?language=fi", "/gamelibrary", "/gameattributes/{id}", "/platforms", "/attributes", "/api").permitAll()
 			.and()
 			.authorizeRequests().anyRequest().authenticated()
+			 .and()
+			  .csrf().ignoringAntMatchers("/h2-console/**")
+			  .and()
+			  .headers().frameOptions().sameOrigin()
 			.and()
 		.formLogin()
 			.loginPage("/login")

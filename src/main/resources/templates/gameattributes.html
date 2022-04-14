@@ -1,19 +1,19 @@
 <!DOCTYPE HTML>
 <html  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	<head>
-	    <title>Game attributes</title>
-	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+	    <title data-th-text="#{label.game.attributes}"></title>
+		<meta http-equiv="Content-Type" contect="text/html" charset="utf-8">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
 	</head>
 	<body>
-		<h2>Game attributes for [[${game.title}]]</h2>
+		<h2>[[${game.title}]]</h2>
 		<div>
 			<div th:if="${#lists.isEmpty(game.attributes)}"><p>There are no attributes added for [[${game.title}]]</p></div>
 			<div th:unless="${#lists.isEmpty(game.attributes)}">
 				<table class="table table-default">
 					<thead>
 						<tr>
-							<th>Attributes</th>
+							<th data-th-text="#{label.attributes}"></th>
 							<th>ID</th>
 						</tr>
 					</thead>
@@ -25,11 +25,11 @@
 					</tbody>
 				</table>
 			</div>
-			<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/editgameattributes/{id}(id=${game.id})}" class="btn btn-default">Add game attribute</a>
-			<a href="/gamelibrary" class="btn btn-default">&larr; Back</a>
+			<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/addgameattribute/{id}(id=${game.id})}" class="btn btn-default">Add game attribute</a>
+			<a href="/gamelibrary" class="btn btn-info" data-th-text="#{label.back}"></a>
 			<p></p>
 			<form sec:authorize="hasAuthority('ADMIN')" th:action="@{logout}" method="post">
-				<input type="submit" value="Sign out" class="btn btn-danger" />
+				<input type="submit" th:value="#{label.logout}" class="btn btn-danger" />
 			</form>
 		</div>
 	</body>

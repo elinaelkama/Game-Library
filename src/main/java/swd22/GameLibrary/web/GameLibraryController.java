@@ -1,5 +1,7 @@
 package swd22.GameLibrary.web;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import swd22.GameLibrary.domain.Attribute;
 import swd22.GameLibrary.domain.AttributeRepository;
 import swd22.GameLibrary.domain.Game;
 import swd22.GameLibrary.domain.GameRepository;
@@ -73,14 +76,26 @@ public class GameLibraryController {
 		return "editgame";
 	}
 	
+	//add game attributes
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value="/addgameattribute/{id}", method = RequestMethod.GET)
-	public String editGameAttributes(@PathVariable("id") Long id, @Valid Model model) {
-		Optional<Game> game = gameRepository.findById(id);
-		//need to cast to object to use game.title in header
-		game.ifPresent(foundGameObject -> model.addAttribute("game", foundGameObject));
+	public String addGameAttributes(@PathVariable("id") Long id, @Valid Model model) {
+		model.addAttribute("games", gameRepository.findAll());
 		model.addAttribute("attributes", attributeRepository.findAll());
+		model.addAttribute("platforms", platformRepository.findAll());
+		model.addAttribute("attribute", new Attribute());
+		List<Attribute> gameAttributes = new ArrayList<>();
 		return "addgameattribute";
+	}
+	
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@RequestMapping(value="/saveattribute/{id}", method = RequestMethod.POST)
+	public String saveGameAttribute(@PathVariable("id") Long id, @Valid Attribute attribute, List<Attribute> gameAttributes, @Valid Model model) {
+		if (attribute.getName() != "" || attribute.getName() != null) {
+			Optional<Game> game = gameRepository.findById(id);
+			gameAttributes.add(attribute);
+		}
+		return "redirect:/gameattributes";
 	}
 	
 	//delete

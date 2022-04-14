@@ -41,6 +41,4 @@ public class AttributeController {
 		}
 		return "redirect:/attributes";
 	}
-	
-	
 }

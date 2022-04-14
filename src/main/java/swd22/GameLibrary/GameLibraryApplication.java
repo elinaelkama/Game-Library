@@ -1,5 +1,8 @@
 package swd22.GameLibrary;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -36,18 +39,6 @@ public class GameLibraryApplication {
 			platformRepository.save(platform3);
 			platformRepository.save(platform4);
 			platformRepository.save(platform5);
-
-			Game game1 = new Game("Dead By Daylight", 2016, 18, platform1);
-			Game game2 = new Game("Fall Guys: Ultimate Knockout", 2020, 3, platform1);
-			Game game3 = new Game("Phasmophobia", 2020, 0, platform1);
-			Game game4 = new Game("Cyberpunk 2077", 2020, 18, platform3);
-			Game game5 = new Game("Read Dead Redemption 2", 2019, 18, platform4);
-			
-			gameRepository.save(game1);
-			gameRepository.save(game2);
-			gameRepository.save(game3);
-			gameRepository.save(game4);
-			gameRepository.save(game5);
 			
 			Attribute attribute1 = new Attribute("Single-Player");
 			Attribute attribute2 = new Attribute("Co-op");
@@ -61,7 +52,21 @@ public class GameLibraryApplication {
 			attributeRepository.save(attribute4);
 			attributeRepository.save(attribute5);
 			
-			//game1.add(new <List>Attributes attribute2));
+			List<Attribute> game1Attributes = new ArrayList<>();
+			game1Attributes.add(attribute2);
+			game1Attributes.add(attribute5);
+
+			Game game1 = new Game("Dead By Daylight", 2016, 18, platform1, game1Attributes);
+			Game game2 = new Game("Fall Guys: Ultimate Knockout", 2020, 3, platform1);
+			Game game3 = new Game("Phasmophobia", 2020, 0, platform1);
+			Game game4 = new Game("Cyberpunk 2077", 2020, 18, platform3);
+			Game game5 = new Game("Read Dead Redemption 2", 2019, 18, platform4);
+			
+			gameRepository.save(game1);
+			gameRepository.save(game2);
+			gameRepository.save(game3);
+			gameRepository.save(game4);
+			gameRepository.save(game5);
 			
 			User user1 = new User("messiah", "$2a$10$3TqmIoCss2ezHiUifteKf.tMbMtpUFlU9lCErNbVSrm94Gl5Z..Da", "ADMIN");
 			User user2 = new User("teacher", "$2a$10$WiIjuE8c4D/T2XGIhjWA.OGaLzjR3kAAQ5X1YAeAsjp16Yh4U0JXy", "ADMIN");

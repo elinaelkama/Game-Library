@@ -54,6 +54,15 @@ public class Game {
 		this.platform = platform;
 	}
 	
+	public Game(String title, int year, int age, Platform platform, List<Attribute> attributes) {
+		super();
+		this.title = title;
+		this.year = year;
+		this.age = age;
+		this.platform = platform;
+		this.attributes = attributes;
+	}
+	
 	public Game() {
 		super();
 	}

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	<head>
-	    <title>Add Game</title>
+	    <title data-th-text="#{label.add.game}">Add Game</title>
 	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
 	</head>
@@ -9,27 +9,28 @@
 		<form th:action="@{logout}" method="post">
 			<input type="submit" value="Sign out" class="btn btn-danger" />
 		</form>
-		<h2>Add new game</h2>
+		<h2 data-th-text="#{label.add.new.game}"></h2>
 		<div>
 			<form th:object="${game}" th:action="@{/save}" method="post" class="form">
-			  	<label>Title: </label>
-				<input type="text" id="title" th:field="*{title}" th:required="required" />
+			  	<label data-th-text="#{label.game.title}"></label>
+				<input type="text" id="title" th:field="*{title}" required />
 				<p></p>
-				<label>Release Year: </label>
-				<input type="text" id="year" th:field="*{year}" th:required="required" />
+				<label data-th-text="#{label.game.year}"></label>
+				<input type="text" id="year" th:field="*{year}" required />
 				<p></p>
-				<label>Age Restriction (0 for n/a or not rated): </label>
-				<input type="text" id="age" th:field="*{age}" th:required="required" />
+				<label data-th-text="#{label.game.age}"></label>
+				<input type="text" id="age" th:field="*{age}" required />
+				<p data-th-text="#{label.age.info}"></p>
 				<p></p>
-				<label>Platform (if platform not listed, create one: <a href="/addplatform" class="btn btn-default">/addplatform</a>): </label>
+				<label data-th-text="#{label.platform}"></label>
 			 	<select id="platforms" th:field="*{platform}" class="form-control">
        				<option th:each="platform: ${platforms}"
        				th:value="${platform.id}" th:text="${platform.name}"></option>
     			</select>
 				<p></p>
-				<input type="submit" class="btn btn-success" value="Save"></input>
+				<input type="submit" class="btn btn-success" th:value="#{label.save}"></input>
 			</form>
-			<a href="/gamelibrary" class="btn btn-default">&larr; Back</a>
+			<a href="/gamelibrary" class="btn btn-info" data-th-text="#{label.back}"></a>
 		</div>
 	</body>
 </html>

@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	<head>
-		<meta http-equiv="Content-Type" contect="text/html" charset="UTF-8">
+		<meta http-equiv="Content-Type" contect="text/html" charset="utf-8">
 		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
-		<title>Game Library</title>
+		<title data-th-text="#{label.title}"></title>
 	</head>
 <body>
-	<h2>Game Library</h2>
-	<a href="/login" class="btn btn-default">Log In</a>
+	<h2 data-th-text="#{label.title}"></h2>
+	<a href="/login" class="btn btn-primary" data-th-text="#{label.login}"></a>
+	<a href="/?language=en" class="btn btn-warning" data-th-text="#{label.language.en}"></a>
+	<a href="/?language=fi" class="btn btn-warning" data-th-text="#{label.language.fi}"></a>
 	<div>
-		<h3 th:inline="text" sec:authorize="hasAuthority('ADMIN')">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+		<h3 th:inline="text" sec:authorize="hasAuthority('ADMIN')" data-th-text="#{label.greeting}">[[${#httpServletRequest.remoteUser}]]</h3>
 		<table class="table table-default">
 			<thead>
 				<tr>
-					<th>Title</th>
-					<th>Release Year</th>
-					<th>Age Restriction</th>
-					<th>Platform</th>
-					<th>Attributes</th>
-					<th sec:authorize="hasAuthority('ADMIN')">Edit</th>
-					<th sec:authorize="hasAuthority('ADMIN')">Delete</th>
+					<th data-th-text="#{label.game.title}"></th>
+					<th data-th-text="#{label.game.year}"></th>
+					<th data-th-text="#{label.game.age}"></th>
+					<th data-th-text="#{label.platform}"></th>
+					<th data-th-text="#{label.attributes}"></th>
+					<th sec:authorize="hasAuthority('ADMIN')" data-th-text="#{label.edit}"></th>
+					<th sec:authorize="hasAuthority('ADMIN')" data-th-text="#{label.delete}"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -29,17 +31,18 @@
 					<div th:unless="${game.age} == 0"><td  th:text ="${game.age}" ></td></div>
 					<div th:if="${game.age} == 0"><td>N/A</td></div>
 					<td th:text ="${game.platform.name}"></td>
-					<td><a th:href="@{/gameattributes/{id}(id=${game.id})}">Game Attributes</a></td>
-					<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/edit/{id}(id=${game.id})}">Edit</a></td>
-					<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${game.id})}" class="btn btn-danger">Delete</a><td>
+					<td><a th:href="@{/gameattributes/{id}(id=${game.id})}" class="btn btn-default" data-th-text="#{label.game.attributes}">Game Attributes</a></td>
+					<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/edit/{id}(id=${game.id})}" data-th-text="#{label.edit}"></a></td>
+					<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${game.id})}" class="btn btn-danger" data-th-text="#{label.delete}"></a><td>
 				</tr>
 			</tbody>
 		</table>
-		<a href="/addgame" class="btn btn-default" sec:authorize="hasAuthority('ADMIN')">Add a new game</a>
-		<a href="/platforms" class="btn btn-default">To platforms</a>
-		<a href="/attributes" class="btn btn-default">To attributes</a>
+		<a href="/addgame" class="btn btn-success" sec:authorize="hasAuthority('ADMIN')" data-th-text="#{label.add.game}">Add a new game</a>
+		<a href="/platforms" class="btn btn-default" data-th-text="#{label.move.platforms}"></a>
+		<a href="/attributes" class="btn btn-default" data-th-text="#{label.move.attributes}"></a>
+		<p></p>
 		<form sec:authorize="hasAuthority('ADMIN')" th:action="@{logout}" method="post">
-			<input type="submit" value="Sign out" class="btn btn-danger" />
+			<input type="submit" th:value="#{label.logout}" class="btn btn-danger" />
 		</form>
 	</div>
 </body>

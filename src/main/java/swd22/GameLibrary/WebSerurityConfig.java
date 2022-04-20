@@ -30,7 +30,7 @@ public class WebSerurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http
-			.authorizeRequests().antMatchers("/h2-console/**", "/css/**", "/", "/?language=en", "/?language=fi", "/gamelibrary", "/gameattributes/{id}", "/platforms", "/attributes", "/api").permitAll()
+			.authorizeRequests().antMatchers("/h2-console/**", "/css/**", "/", "/?language=en", "/?language=fi", "/game/{id}/attributes", "/platforms", "/attributes", "/api").permitAll()
 			.and()
 			.authorizeRequests().anyRequest().authenticated()
 			 .and()
@@ -40,7 +40,7 @@ public class WebSerurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 		.formLogin()
 			.loginPage("/login")
-			.defaultSuccessUrl("/gamelibrary", true)
+			.defaultSuccessUrl("/", true)
 			.permitAll()
 			.and()
 		.logout()

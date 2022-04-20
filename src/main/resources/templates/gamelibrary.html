@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	<head>
 		<meta http-equiv="Content-Type" contect="text/html" charset="utf-8">
-		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+		<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 		<title data-th-text="#{label.title}"></title>
 	</head>
 <body>
 	<h2 data-th-text="#{label.title}"></h2>
-	<a href="/login" class="btn btn-primary" data-th-text="#{label.login}"></a>
+	<a href="/login" sec:authorize="isAnonymous" class="btn btn-primary" data-th-text="#{label.login}"></a>
 	<a href="/?language=en" class="btn btn-warning" data-th-text="#{label.language.en}"></a>
 	<a href="/?language=fi" class="btn btn-warning" data-th-text="#{label.language.fi}"></a>
 	<div>
@@ -31,13 +31,13 @@
 					<div th:unless="${game.age} == 0"><td  th:text ="${game.age}" ></td></div>
 					<div th:if="${game.age} == 0"><td>N/A</td></div>
 					<td th:text ="${game.platform.name}"></td>
-					<td><a th:href="@{/gameattributes/{id}(id=${game.id})}" class="btn btn-default" data-th-text="#{label.game.attributes}">Game Attributes</a></td>
-					<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/edit/{id}(id=${game.id})}" data-th-text="#{label.edit}"></a></td>
-					<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${game.id})}" class="btn btn-danger" data-th-text="#{label.delete}"></a><td>
+					<td><a th:href="@{/game/{id}/attributes(id=${game.id})}" class="btn btn-default" data-th-text="#{label.game.attributes}"></a></td>
+					<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/game/{id}/edit(id=${game.id})}" class="btn btn-primary" data-th-text="#{label.edit}"></a></td>
+					<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/game/{id}/delete(id=${game.id})}" class="btn btn-danger" data-th-text="#{label.delete}"></a><td>
 				</tr>
 			</tbody>
 		</table>
-		<a href="/addgame" class="btn btn-success" sec:authorize="hasAuthority('ADMIN')" data-th-text="#{label.add.game}">Add a new game</a>
+		<a href="/game/add" class="btn btn-success" sec:authorize="hasAuthority('ADMIN')" data-th-text="#{label.add.game}"></a>
 		<a href="/platforms" class="btn btn-default" data-th-text="#{label.move.platforms}"></a>
 		<a href="/attributes" class="btn btn-default" data-th-text="#{label.move.attributes}"></a>
 		<p></p>

@@ -111,9 +111,21 @@ public class Game {
 	public void setAttributes(List<Attribute> attributes) {
 		this.attributes = attributes;
 	}
+	
+	public void addAttribute(Attribute attribute) {
+		attributes.add(attribute);
+	}
+	
+	public boolean hasAttribute(Attribute attribute) {
+		return attributes.contains(attribute);
+	}
+	
+	public void deleteAttribute(Attribute attribute) {
+		attributes.remove(attribute);
+	}
 
 	@Override
 	public String toString() {
-		return "id=" + id + ", title=" + title + ", year=" + year;
+		return "id=" + id + ", title=" + title + ", year=" + year + ", age=" + age +", platform=" + platform + ", attributes=" + attributes;
 	}		
 }

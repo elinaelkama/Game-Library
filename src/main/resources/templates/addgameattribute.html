@@ -1,32 +1,23 @@
 <!DOCTYPE HTML>
 <html  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	<head>
-	    <title>Add game attributes</title>
+	    <title th:text="#{label.add.game.attribute}"></title>
 	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+	    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 	</head>
 	<body>
-		<form th:action="@{logout}" method="post">
-			<input type="submit" value="Sign out" class="btn btn-danger" />
-		</form>
-		<h2>Add game attribute for [[${game.title}]]</h2>
+		<h2 th:text="#{label.add.game.attribute}"></h2>
 		<div>
-			<form th:object="${game}" th:action="@{/save}" method="post">
-				<input type="hidden" th:field="*{id}" />
-				<input type="hidden" th:field="*{title}" />
-				<input type="hidden" th:field="*{year}" />
-				<input type="hidden" th:field="*{age}" />
-				<input type="hidden" th:field="*{platform.id}" />
-				<input type="hidden" th:field="*{platform.name}" />
-				<input type="hidden" th:field="*{gameattributes}" />
-				<label for="attributelist">Attributes</label>
-			 	<select id="attributelist" class="form-control">
-       				<option th:each="attribute: ${attributes}" th:value="${attribute.id}" th:text="${attribute.name}"></option>
-    			</select>
-    			<p></p>
-				<input type="submit" class="btn btn-success" th:value="#{label.save}"></input>
+			<form th:action="@{/game/{id}/attributes/add/{attid}(id=${game.id},attid=${attribute.id})}" method="get" th:each="attribute: ${attributes}">
+				<p th:text="${attribute.name}"></p>
+				<input type="submit" class="btn btn-success" th:value="#{label.add}"></input>
 			</form>
-			<a href="/gameattributes/{id}(id=${game.id})}" class="btn btn-info" data-th-text="#{label.back}"></a>
+			<p></p>
+			<a th:href="@{/game/{id}/attributes(id=${game.id})}" class="btn btn-info" data-th-text="#{label.back}"></a>
+			<p></p>
+			<form th:action="@{logout}" method="post">
+				<input type="submit" th:value="#{label.logout}" class="btn btn-danger" />
+			</form>
 		</div>
 	</body>
 </html>

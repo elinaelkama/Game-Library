@@ -1,6 +1,7 @@
 package swd22.GameLibrary.web;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,14 +35,19 @@ public class GameLibraryController {
 	
 	
 
-	@RequestMapping(value={"/", "/gamelibrary"}, method = RequestMethod.GET)
+	@RequestMapping(value={"/"}, method = RequestMethod.GET)
 	public String getGameLibrary(@Valid Model model) {
 		model.addAttribute("games", gameRepository.findAll());
 		return "gamelibrary";
 	}
 	
+	@RequestMapping(value="/login")
+	public String login() {
+		return "login";
+	}
+	
 	@PreAuthorize("hasAuthority('ADMIN')")
-	@RequestMapping(value="/addgame", method = RequestMethod.GET)
+	@RequestMapping(value="/game/add", method = RequestMethod.GET)
 	public String addGame(@Valid Model model) {
 		model.addAttribute("game", new Game());
 		model.addAttribute("platforms", platformRepository.findAll());
@@ -49,15 +55,49 @@ public class GameLibraryController {
 	}
 	
 	@PreAuthorize("hasAuthority('ADMIN')")
-	@RequestMapping(value="/save", method = RequestMethod.POST)
-	public String saveGame(@Valid Game game) {
+	@RequestMapping(value="/game/add", method = RequestMethod.POST)
+	public String addGame(@Valid Game game) {
 		if (game.getTitle() != "" && game.getTitle() != null) {
 			gameRepository.save(game);
 		}
-		return "redirect:/gamelibrary";
+		return "redirect:/";
 	}
 	
-	@RequestMapping(value="/gameattributes/{id}", method = RequestMethod.GET)
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@RequestMapping(value="/game/save", method = RequestMethod.POST)
+	public String saveGame(@Valid Game game) {
+		Optional<Game> optGame = gameRepository.findById(game.getId());
+		Game savedGame = optGame.get();
+		savedGame.setTitle(game.getTitle());
+		savedGame.setYear(game.getYear());
+		savedGame.setAge(game.getAge());
+		savedGame.setPlatform(game.getPlatform());
+		if (game.getTitle() != "" && game.getTitle() != null) {
+			gameRepository.save(savedGame);
+		}
+		return "redirect:/";
+	}
+	
+	//edits
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@RequestMapping(value="/game/{id}/edit", method = RequestMethod.GET)
+	public String editGame(@PathVariable("id") Long id, @Valid Model model) {
+		Optional<Game> game = gameRepository.findById(id);
+		game.ifPresent(foundGameObject -> model.addAttribute("game", foundGameObject));
+		model.addAttribute("attributes", attributeRepository.findAll());
+		return "editgame";
+	}
+	
+	//delete
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@RequestMapping(value="/game/{id}/delete", method = RequestMethod.GET)
+	public String deleteGame(@PathVariable("id") Long id, @Valid Model model) {
+		gameRepository.deleteById(id);
+		return "redirect:/";
+	}
+
+	//game attributes	
+	@RequestMapping(value="/game/{id}/attributes", method = RequestMethod.GET)
 	public String getGameAttributes(@PathVariable("id") Long id, @Valid Model model) {
 		Optional<Game> game = gameRepository.findById(id);
 		//need to cast to object to use object functionalities
@@ -66,49 +106,37 @@ public class GameLibraryController {
 		return "gameattributes";
 	}
 	
-	//edits
 	@PreAuthorize("hasAuthority('ADMIN')")
-	@RequestMapping(value="/edit/{id}", method = RequestMethod.GET)
-	public String editGame(@PathVariable("id") Long id, @Valid Model model) {
+	@RequestMapping(value="/game/{id}/attributes/add", method = RequestMethod.GET)
+	public String addGameAttributesForm(@PathVariable("id") Long id, @Valid Model model) {
 		Optional<Game> game = gameRepository.findById(id);
-		model.addAttribute("game", game);
-		model.addAttribute("platforms", platformRepository.findAll());
-		return "editgame";
-	}
-	
-	//add game attributes
-	@PreAuthorize("hasAuthority('ADMIN')")
-	@RequestMapping(value="/addgameattribute/{id}", method = RequestMethod.GET)
-	public String addGameAttributes(@PathVariable("id") Long id, @Valid Model model) {
-		model.addAttribute("games", gameRepository.findAll());
+		//need to cast to object to use object functionalities
+		game.ifPresent(foundGameObject -> model.addAttribute("game", foundGameObject));
 		model.addAttribute("attributes", attributeRepository.findAll());
-		model.addAttribute("platforms", platformRepository.findAll());
-		model.addAttribute("attribute", new Attribute());
-		List<Attribute> gameAttributes = new ArrayList<>();
 		return "addgameattribute";
 	}
 	
 	@PreAuthorize("hasAuthority('ADMIN')")
-	@RequestMapping(value="/saveattribute/{id}", method = RequestMethod.POST)
-	public String saveGameAttribute(@PathVariable("id") Long id, @Valid Attribute attribute, List<Attribute> gameAttributes, @Valid Model model) {
-		if (attribute.getName() != "" || attribute.getName() != null) {
-			Optional<Game> game = gameRepository.findById(id);
-			gameAttributes.add(attribute);
+	@RequestMapping(value="/game/{id}/attributes/add/{attid}", method = RequestMethod.GET)
+	public String addGameAttributes(@PathVariable("id") Long id, @PathVariable("attid") Long attid) {
+		Game game = gameRepository.findById(id).get();
+		Attribute attribute = attributeRepository.findById(attid).get();
+		if (!game.hasAttribute(attribute)) {
+			game.addAttribute(attribute);
+			gameRepository.save(game);
 		}
-		return "redirect:/gameattributes";
+		return "redirect:/game/{id}/attributes";
 	}
 	
-	//delete
 	@PreAuthorize("hasAuthority('ADMIN')")
-	@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
-	public String deleteGame(@PathVariable("id") Long id, @Valid Model model) {
-		gameRepository.deleteById(id);
-		return "redirect:/gamelibrary";
+	@RequestMapping(value="/game/{id}/attributes/delete/{attid}", method = RequestMethod.GET)
+	public String deleteGameAttributes(@PathVariable("id") Long id, @PathVariable("attid") Long attid) {
+		Game game = gameRepository.findById(id).get();
+		Attribute attribute = attributeRepository.findById(attid).get();
+		if (game.hasAttribute(attribute)) {
+			game.deleteAttribute(attribute);
+			gameRepository.save(game);
+		}
+		return "redirect:/game/{id}/attributes";
 	}
-	
-	@RequestMapping(value="/login")
-	public String login() {
-		return "login";
-	}
-	
 }

@@ -1,17 +1,14 @@
 <!DOCTYPE HTML>
 <html  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	<head>
-	    <title data-th-text="#{label.add.game}">Add Game</title>
+	    <title data-th-text="#{label.add.game}"></title>
 	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+	    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 	</head>
 	<body>
-		<form th:action="@{logout}" method="post">
-			<input type="submit" value="Sign out" class="btn btn-danger" />
-		</form>
 		<h2 data-th-text="#{label.add.new.game}"></h2>
 		<div>
-			<form th:object="${game}" th:action="@{/save}" method="post" class="form">
+			<form th:object="${game}" th:action="@{/game/add}" method="post" class="form">
 			  	<label data-th-text="#{label.game.title}"></label>
 				<input type="text" id="title" th:field="*{title}" required />
 				<p></p>
@@ -30,7 +27,12 @@
 				<p></p>
 				<input type="submit" class="btn btn-success" th:value="#{label.save}"></input>
 			</form>
-			<a href="/gamelibrary" class="btn btn-info" data-th-text="#{label.back}"></a>
+			<p></p>
+			<a href="/" class="btn btn-info" data-th-text="#{label.back}"></a>
+			<p></p>
+			<form th:action="@{logout}" method="post">
+				<input type="submit" th:value="#{label.logout}" class="btn btn-danger" />
+			</form>
 		</div>
 	</body>
 </html>

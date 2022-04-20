@@ -27,14 +27,14 @@ public class PlatformController {
 	}
 	
 	@PreAuthorize("hasAuthority('ADMIN')")
-	@RequestMapping(value="/addplatform", method = RequestMethod.GET)
+	@RequestMapping(value="/platforms/add", method = RequestMethod.GET)
 	public String addPlatform(@Valid Model model) {
 		model.addAttribute("platform", new Platform());
 		return "addplatform";
 	}
 	
 	@PreAuthorize("hasAuthority('ADMIN')")
-	@RequestMapping(value="/saveplatform", method = RequestMethod.POST)
+	@RequestMapping(value="/platforms/save", method = RequestMethod.POST)
 	public String savePlatform(@Valid Platform platform) {
 		if (platform.getName() != "" || platform.getName() != null) {
 			platformRepository.save(platform);

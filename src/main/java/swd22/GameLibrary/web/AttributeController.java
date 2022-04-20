@@ -27,14 +27,14 @@ public class AttributeController {
 	}
 	
 	@PreAuthorize("hasAuthority('ADMIN')")
-	@RequestMapping(value="/addattribute", method = RequestMethod.GET)
+	@RequestMapping(value="/attributes/add", method = RequestMethod.GET)
 	public String addAttribute(@Valid Model model) {
 		model.addAttribute("attribute", new Attribute());
 		return "addattribute";
 	}
 	
 	@PreAuthorize("hasAuthority('ADMIN')")
-	@RequestMapping(value="/saveattribute", method = RequestMethod.POST)
+	@RequestMapping(value="/attributes/save", method = RequestMethod.POST)
 	public String saveAttribute(@Valid Attribute attribute) {
 		if (attribute.getName() != "" || attribute.getName() != null) {
 			attributeRepository.save(attribute);

@@ -3,21 +3,23 @@
 	<head>
 	    <title data-th-text="#{label.add.attribute}"></title>
 	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+	    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 	</head>
 	<body>
-		<form th:action="@{logout}" method="post">
-			<input type="submit" value="Sign out" class="btn btn-danger" />
-		</form>
 		<h2 data-th-text="#{label.add.new.attribute}"></h2>
 		<div>
-			<form th:object="${attribute}" th:action="@{/saveattribute}" method="post">
+			<form th:object="${attribute}" th:action="@{/attributes/save}" method="post">
 			  	<label data-th-text="#{label.attribute}"></label>
 				<input type="text" id="name" th:field="*{name}" required />
 				<p></p>
 				<input type="submit" class="btn btn-success" th:value="#{label.save}"></input>
 			</form>
-		<a href="/attributes" class="btn btn-info" data-th-text="#{label.back}"></a>
+			<p></p>
+			<a href="/attributes" class="btn btn-info" data-th-text="#{label.back}"></a>
+			<p></p>
+			<form th:action="@{logout}" method="post">
+				<input type="submit" th:value="#{label.logout}" class="btn btn-danger" />
+			</form>
 		</div>
 	</body>
 </html>

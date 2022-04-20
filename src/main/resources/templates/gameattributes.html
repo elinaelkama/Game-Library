@@ -3,30 +3,32 @@
 	<head>
 	    <title data-th-text="#{label.game.attributes}"></title>
 		<meta http-equiv="Content-Type" contect="text/html" charset="utf-8">
-		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+		<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 	</head>
 	<body>
 		<h2>[[${game.title}]]</h2>
 		<div>
-			<div th:if="${#lists.isEmpty(game.attributes)}"><p>There are no attributes added for [[${game.title}]]</p></div>
+			<div th:if="${#lists.isEmpty(game.attributes)}" data-th-text="#{label.game.attribute.notfound}"><p></p></div>
 			<div th:unless="${#lists.isEmpty(game.attributes)}">
 				<table class="table table-default">
 					<thead>
 						<tr>
 							<th data-th-text="#{label.attributes}"></th>
 							<th>ID</th>
+							<th sec:authorize="hasAuthority('ADMIN')" data-th-text="#{label.delete}"></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each = "attribute : ${game.attributes}">
 							<td th:text ="${attribute.name}"></td>
 							<td th:text ="${attribute.id}"></td>
+							<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/game/{id}/attributes/delete/{attid}/(id=${game.id},attid=${attribute.id})}" class="btn btn-danger" data-th-text="#{label.delete}"></a><td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
-			<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/addgameattribute/{id}(id=${game.id})}" class="btn btn-default">Add game attribute</a>
-			<a href="/gamelibrary" class="btn btn-info" data-th-text="#{label.back}"></a>
+			<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/game/{id}/attributes/add(id=${game.id})}" th:text="#{label.add.game.attribute}" class="btn btn-default"></a>
+			<a href="/" class="btn btn-info" data-th-text="#{label.back}"></a>
 			<p></p>
 			<form sec:authorize="hasAuthority('ADMIN')" th:action="@{logout}" method="post">
 				<input type="submit" th:value="#{label.logout}" class="btn btn-danger" />

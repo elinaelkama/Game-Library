@@ -2,7 +2,7 @@
 <html  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	<head>
 		<meta http-equiv="Content-Type" contect="text/html" charset="UTF-8">
-		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />		
+		<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />		
 		<title data-th-text="#{label.platforms}"></title>
 	</head>
 	<body>
@@ -23,8 +23,8 @@
 					</tr>
 				</tbody>
 			</table>
-			<a sec:authorize="hasAuthority('ADMIN')" data-th-text="#{label.add.platform}" href="/addplatform" class="btn btn-default"></a>
-			<a href="/gamelibrary" class="btn btn-info" data-th-text="#{label.back}"></a>
+			<a sec:authorize="hasAuthority('ADMIN')" data-th-text="#{label.add.platform}" href="/platforms/add" class="btn btn-default"></a>
+			<a href="/" class="btn btn-info" data-th-text="#{label.back}"></a>
 			<p></p>
 			<form sec:authorize="hasAuthority('ADMIN')" th:action="@{logout}" method="post">
 				<input type="submit" th:value="#{label.logout}" class="btn btn-danger" />

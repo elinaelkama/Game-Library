@@ -72,6 +72,7 @@ public class GameLibraryController {
 		savedGame.setYear(game.getYear());
 		savedGame.setAge(game.getAge());
 		savedGame.setPlatform(game.getPlatform());
+		savedGame.setAttributes(game.getAttributes());
 		if (game.getTitle() != "" && game.getTitle() != null) {
 			gameRepository.save(savedGame);
 		}
@@ -84,6 +85,7 @@ public class GameLibraryController {
 	public String editGame(@PathVariable("id") Long id, @Valid Model model) {
 		Optional<Game> game = gameRepository.findById(id);
 		game.ifPresent(foundGameObject -> model.addAttribute("game", foundGameObject));
+		model.addAttribute("platforms", platformRepository.findAll());
 		model.addAttribute("attributes", attributeRepository.findAll());
 		return "editgame";
 	}

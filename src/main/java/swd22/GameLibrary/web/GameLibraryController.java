@@ -72,7 +72,6 @@ public class GameLibraryController {
 		savedGame.setYear(game.getYear());
 		savedGame.setAge(game.getAge());
 		savedGame.setPlatform(game.getPlatform());
-		savedGame.setAttributes(game.getAttributes());
 		if (game.getTitle() != "" && game.getTitle() != null) {
 			gameRepository.save(savedGame);
 		}

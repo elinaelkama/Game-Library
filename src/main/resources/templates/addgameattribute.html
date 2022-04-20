@@ -9,10 +9,12 @@
 		<h2 th:text="#{label.add.game.attribute}"></h2>
 		<h3>[[${game.title}]]</h3>
 		<div>
-			<form th:action="@{/game/{id}/attributes/add/{attid}(id=${game.id},attid=${attribute.id})}" method="get" th:each="attribute: ${attributes}">
-				<p th:text="${attribute.name}"></p>
-				<input type="submit" class="btn btn-success" th:value="#{label.add}"></input>
-			</form>
+			<table class="table table-default">
+				<tr th:each="attribute: ${attributes}">
+					<td th:text="${attribute.name}"></td>
+					<td><a th:href="@{/game/{id}/attributes/add/{attid}(id=${game.id},attid=${attribute.id})}"><input type="button" class="btn btn-success" th:value="#{label.add}"></input></td>
+				</tr>
+			</table>
 			<p></p>
 			<a th:href="@{/game/{id}/attributes(id=${game.id})}" class="btn btn-info" data-th-text="#{label.back}"></a>
 			<p></p>

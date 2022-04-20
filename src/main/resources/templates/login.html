@@ -19,12 +19,9 @@
 				<div><input type="submit" class="btn btn-success" th:value="#{label.login}" /></div>
 			</form>
 		</div>
-		<div th:if="${param.error}">
-			Invalid login.
-		</div>
-		<div th:if="${param.logout}">
-			You have logged out.
-		</div>
 		<a href="/" class="btn btn-info" data-th-text="#{label.back}"></a>
+		<p>
+		<p th:if="${param.error}" th:text="#{label.login.invalid}"></p>
+		<p th:if="${param.logout}" th:text="#{label.logout.text}"></p>
 	</body>
 </html>

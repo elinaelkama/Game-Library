@@ -7,6 +7,7 @@
 	</head>
 	<body>
 		<h2 th:text="#{label.add.game.attribute}"></h2>
+		<h3>[[${game.title}]]</h3>
 		<div>
 			<form th:action="@{/game/{id}/attributes/add/{attid}(id=${game.id},attid=${attribute.id})}" method="get" th:each="attribute: ${attributes}">
 				<p th:text="${attribute.name}"></p>

@@ -69,7 +69,7 @@ public class GameLibraryApplication {
 			gameRepository.save(game4);
 			gameRepository.save(game5);
 			
-			User user1 = new User("messiah", "$2a$10$3TqmIoCss2ezHiUifteKf.tMbMtpUFlU9lCErNbVSrm94Gl5Z..Da", "ADMIN");
+			User user1 = new User("elina", "$2a$10$3TqmIoCss2ezHiUifteKf.tMbMtpUFlU9lCErNbVSrm94Gl5Z..Da", "ADMIN");
 			User user2 = new User("teacher", "$2a$10$WiIjuE8c4D/T2XGIhjWA.OGaLzjR3kAAQ5X1YAeAsjp16Yh4U0JXy", "ADMIN");
 			
 			userRepository.save(user1);

@@ -11,7 +11,8 @@
 	<a href="/?language=en" class="btn btn-warning" data-th-text="#{label.language.en}"></a>
 	<a href="/?language=fi" class="btn btn-warning" data-th-text="#{label.language.fi}"></a>
 	<div>
-		<h3 th:inline="text" sec:authorize="hasAuthority('ADMIN')" data-th-text="#{label.greeting}">[[${#httpServletRequest.remoteUser}]]</h3>
+		<h3 sec:authorize="hasAuthority('ADMIN')" data-th-text="#{label.greeting}"></h3>
+		<h3 th:inline="text" sec:authorize="hasAuthority('ADMIN')">[[${#httpServletRequest.remoteUser}]]</h3>
 		<table class="table table-default">
 			<thead>
 				<tr>

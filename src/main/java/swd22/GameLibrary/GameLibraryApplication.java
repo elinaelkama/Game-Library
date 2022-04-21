@@ -68,30 +68,30 @@ public class GameLibraryApplication {
 			game1Attributes.add(attribute5);
 			
 			List<Attribute> game4Attributes = new ArrayList<>();
-			game1Attributes.add(attribute6);
-			game1Attributes.add(attribute7);
-			game1Attributes.add(attribute1);
-			game1Attributes.add(attribute8);
-			game1Attributes.add(attribute4);
+			game4Attributes.add(attribute6);
+			game4Attributes.add(attribute7);
+			game4Attributes.add(attribute1);
+			game4Attributes.add(attribute8);
+			game4Attributes.add(attribute4);
 			
 			List<Attribute> game6Attributes = new ArrayList<>();
-			game1Attributes.add(attribute7);
-			game1Attributes.add(attribute9);
-			game1Attributes.add(attribute5);
-			game1Attributes.add(attribute1);
-			game1Attributes.add(attribute3);
+			game6Attributes.add(attribute7);
+			game6Attributes.add(attribute9);
+			game6Attributes.add(attribute5);
+			game6Attributes.add(attribute1);
+			game6Attributes.add(attribute3);
 			
 			List<Attribute> game5Attributes = new ArrayList<>();
-			game1Attributes.add(attribute7);
-			game1Attributes.add(attribute1);
-			game1Attributes.add(attribute10);
-			game1Attributes.add(attribute8);
+			game5Attributes.add(attribute7);
+			game5Attributes.add(attribute1);
+			game5Attributes.add(attribute10);
+			game5Attributes.add(attribute8);
 			
 			List<Attribute> game7Attributes = new ArrayList<>();
-			game1Attributes.add(attribute1);
-			game1Attributes.add(attribute3);
-			game1Attributes.add(attribute5);
-			game1Attributes.add(attribute8);
+			game7Attributes.add(attribute1);
+			game7Attributes.add(attribute3);
+			game7Attributes.add(attribute5);
+			game7Attributes.add(attribute8);
 
 			Game game1 = new Game("Dead By Daylight", 2016, 18, platform1, game1Attributes);
 			Game game2 = new Game("Fall Guys: Ultimate Knockout", 2020, 3, platform1);

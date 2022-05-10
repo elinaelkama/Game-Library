@@ -10,4 +10,4 @@ Game Library is a final project for a Backend Programming course.
 - Spring Boot REST
 
 ## Demo
-TBA
+https://game-library-e.herokuapp.com/

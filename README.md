@@ -9,5 +9,5 @@ Game Library is a final project for a Backend Programming course.
 - Bean Validation
 - Spring Boot REST
 
-## Demo
-https://game-library-e.herokuapp.com/
+# Demo
+Not currently available
